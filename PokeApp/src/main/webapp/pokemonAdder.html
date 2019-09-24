@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+    <h1>Pokemon Adder</h1>
+    <h1>ID:</h1>
+    <input id="id" type="number">
+    <h1>Name:</h1>
+    <input type="text" name="name" id="name">
+    <h1>Type:</h1>
+    <input type="text" name="type" id="type">
+    <br>
+    <button onclick="addPokemon()">Add Pokemon</button>
+</body>
+<script>
+function addPokemon(){
+    let pid = document.getElementById("id").value;
+    let name = document.getElementById("name").value;
+    let t = document.getElementById("type").value;
+		let xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function(){
+			if(this.readyState==4 && this.status==200){
+                    console.log(this.responseText)
+			}
+		}
+		xhttp.open("POST",`http://localhost:8080/PokeApp/addPokemon.do`,true);
+		xhttp.setRequestHeader("X-Requested-With","XMLHttpRequest");
+        xhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+        
+        xhttp.send(`id=${pid}&name=${name}&type=${t}`);
+}
+</script>
+</html>
